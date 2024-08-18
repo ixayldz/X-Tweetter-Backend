@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweetr API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #007BFF;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 1.1em;
+            color: #d63384;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        .endpoint {
+            margin-bottom: 30px;
+        }
+        .endpoint-title {
+            margin: 10px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tweetr API Documentation</h1>
+        <p>Welcome to the Tweetr API documentation. Below are the available API endpoints and how to use them.</p>
+
+        <h2>Authentication</h2>
+        <div class="endpoint">
+            <div class="endpoint-title">POST /api/users/register</div>
+            <p>Registers a new user.</p>
+            <h3>Request Body:</h3>
+            <pre>
+{
+    "username": "exampleuser",
+    "email": "user@example.com",
+    "password": "password123"
+}
+            </pre>
+            <h3>Response:</h3>
+            <pre>
+{
+    "message": "User registered successfully",
+    "token": "your-jwt-token"
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <div class="endpoint-title">POST /api/users/login</div>
+            <p>Logs in an existing user.</p>
+            <h3>Request Body:</h3>
+            <pre>
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+            </pre>
+            <h3>Response:</h3>
+            <pre>
+{
+    "message": "Login successful",
+    "token": "your-jwt-token"
+}
+            </pre>
+        </div>
+
+        <h2>Tweet Management</h2>
+        <div class="endpoint">
+            <div class="endpoint-title">POST /api/tweets</div>
+            <p>Creates a new tweet (authenticated).</p>
+            <h3>Request Body:</h3>
+            <pre>
+{
+    "content": "This is my tweet!",
+    "media": "optional-media-url"
+}
+            </pre>
+            <h3>Response:</h3>
+            <pre>
+{
+    "message": "Tweet created successfully",
+    "tweet": {
+        "_id": "tweet-id",
+        "content": "This is my tweet!",
+        "author": "user-id",
+        "createdAt": "timestamp"
+    }
+}
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <div class="endpoint-title">GET /api/tweets/:id</div>
+            <p>Fetches a tweet by its ID.</p>
+            <h3>Response:</h3>
+            <pre>
+{
+    "_id": "tweet-id",
+    "content": "This is my tweet!",
+    "author": {
+        "_id": "user-id",
+        "username": "exampleuser"
+    },
+    "likes": 10,
+    "retweets": 5,
+    "createdAt": "timestamp"
+}
+            </pre>
+        </div>
+
+        <h2>Feed and Notifications</h2>
+        <div class="endpoint">
+            <div class="endpoint-title">GET /api/feed</div>
+            <p>Fetches the personalized feed for the authenticated user.</p>
+            <h3>Response:</h3>
+            <pre>
+[
+    {
+        "_id": "tweet-id",
+        "content": "This is a tweet in your feed",
+        "author": {
+            "_id": "user-id",
+            "username": "exampleuser"
+        },
+        "likes": 10,
+        "retweets": 5,
+        "createdAt": "timestamp"
+    },
+    ...
+]
+            </pre>
+        </div>
+
+        <div class="endpoint">
+            <div class="endpoint-title">GET /api/notifications</div>
+            <p>Fetches all notifications for the authenticated user.</p>
+            <h3>Response:</h3>
+            <pre>
+[
+    {
+        "_id": "notification-id",
+        "type": "like",
+        "sender": {
+            "_id": "user-id",
+            "username": "anotheruser"
+        },
+        "message": "User liked your tweet",
+        "createdAt": "timestamp"
+    },
+    ...
+]
+            </pre>
+        </div>
+
+        <h2>Real-Time Communication (Socket.IO)</h2>
+        <div class="endpoint">
+            <p>In addition to RESTful endpoints, Tweetr also supports real-time features using Socket.IO. Below are the main events:</p>
+            <ul>
+                <li><code>user-join</code>: Joins a user to the real-time session.</li>
+                <li><code>send-message</code>: Sends a direct message to another user.</li>
+                <li><code>send-notification</code>: Sends a notification to another user.</li>
+            </ul>
+        </div>
+
+        <h2>Contact & Support</h2>
+        <p>For more information or support, please reach out to <a href="mailto:support@tweetr.com">support@tweetr.com</a>.</p>
+    </div>
+</body>
+</html>
