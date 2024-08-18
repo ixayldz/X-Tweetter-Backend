@@ -38,15 +38,43 @@ Tweetr is a scalable, feature-rich social media platform similar to X (formerly 
 
 backend/
 │
-├── config/ # Configuration files (DB, Redis, AWS S3, etc.)
-├── controllers/ # Controllers for handling routes logic
-├── middlewares/ # Custom middleware (auth, error handling, etc.)
-├── models/ # Mongoose models for MongoDB
-├── routes/ # Express routes
-├── services/ # Business logic and utilities (feed generation, recommendation, etc.)
-├── .env # Environment variables (not committed)
-├── server.js # Entry point of the application
-└── README.md # Documentation
+├── config/                 # Configuration files (DB, Redis, AWS S3, etc.)
+│   ├── db.js               # MongoDB connection configuration
+│   ├── redis.js            # Redis configuration
+│   ├── s3.js               # AWS S3 configuration
+│   ├── queue.js            # RabbitMQ configuration
+│   └── logger.js           # Winston logging configuration
+│
+├── controllers/            # Controllers for handling route logic
+│   ├── authController.js   # User authentication and management
+│   ├── tweetController.js  # Tweet-related actions (create, like, retweet, etc.)
+│   ├── notificationController.js # Notification management
+│   └── feedController.js   # Feed generation and retrieval
+│
+├── middlewares/            # Custom middleware
+│   ├── authMiddleware.js   # JWT authentication and role-based access control
+│   └── errorMiddleware.js  # Global error handling middleware
+│
+├── models/                 # Mongoose models
+│   ├── User.js             # User schema and model
+│   ├── Tweet.js            # Tweet schema and model
+│   └── Notification.js     # Notification schema and model
+│
+├── routes/                 # Express routes
+│   ├── auth.js             # Routes for user registration and login
+│   ├── tweets.js           # Routes for tweet actions (create, like, etc.)
+│   └── feed.js             # Routes for feed retrieval
+│
+├── services/               # Business logic and utilities
+│   ├── feedService.js      # Logic for personalized feed generation
+│   ├── contentFilteringService.js # Logic for content-based filtering (recommendations)
+│   ├── collaborativeFilteringService.js # Logic for collaborative filtering
+│   └── hybridRecommendationService.js # Combines multiple recommendation strategies
+│
+├── .env                    # Environment variables (not committed)
+├── server.js               # Entry point of the application
+└── README.md               # Project documentation
+
 
 
 
